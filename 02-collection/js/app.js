@@ -1,4 +1,4 @@
-// 01 - Configure Router
+// 02 - Configure Collection
 //---------------------------------
 
 // (0) Configuration: Get apikey from: http://sunlightfoundation.com/api/ and 
@@ -34,8 +34,10 @@ var DaterModel = Backbone.Model.extend({
 })
 
 var DaterCollection = Backbone.Collection.extend({
+  //(3a)
   model: DaterModel,
   
+  //(3b)
   url: function(masParams){
     var apiKeyParam = "apikey=7ba96d266cc84b168fab4d878d9aa141"; 
     
@@ -47,8 +49,9 @@ var DaterCollection = Backbone.Collection.extend({
     return fullUrl
   },
 
+  //(3c)
   parse: function(rawData){
-    console.log(rawData)
+    //(5)
     return rawData.results
   }
 
@@ -71,12 +74,13 @@ var AppRouter = Backbone.Router.extend({
 
     //(4a)
     laCollecion.fetch().then(function(d){
+      // (6)
       console.log(laCollecion)
     })
   },
 
   showSingle: function(bioId){
-    container_el.innerHTML = "<h2> !Single profile: «" +  bioId + "» To Go Here</h2>"
+    container_el.innerHTML = "<h2>Single profile: «" +  bioId + "» To Go Here</h2>"
       var laCollecion = new DaterCollection()
       
       //(4b)

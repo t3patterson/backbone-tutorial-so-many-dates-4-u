@@ -27,18 +27,17 @@ var AppRouter = Backbone.Router.extend({
 
   //(4a)
   showMultiHome: function(){
-    alert('hommmee page!')
     container_el.innerHTML = "<h2>Multi Profile View To Go Here</h2>"
   },
 
   //(4b)
   showSingle: function(id){
-    container_el.innerHTML = "<h2> !Single profile: «" +  id + "» To Go Here</h2>"
+    container_el.innerHTML = "<h2> Single profile: «" +  id + "» To Go Here</h2>"
   },
 
 
   initialize: function(){
-    alert('unmm hi')
+    console.log('hi, route party started')
     Backbone.history.start()
   }
 })
