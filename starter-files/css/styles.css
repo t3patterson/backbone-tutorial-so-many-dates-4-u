@@ -1,0 +1,288 @@
+*{
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 0;
+}
+body > *{
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#container{
+  position: relative;
+  padding: 20px;
+}
+
+header{
+  text-align: right;
+  background: #D64541;
+  padding: 10px;
+}
+
+
+h1.title{
+  border-bottom: #fff 1px solid;
+  color: rgba(255,192,203,1);
+  font-family: 'Zapf Chancery', cursive;
+}
+
+.title a {
+  text-decoration: none;
+  color: rgba(255,192,203,1);
+}
+
+nav {
+  background: rgba(255,192,203,1); 
+  text-align: right;
+  padding: 5px 20px;
+  margin-bottom: 20px;
+}
+
+nav input[type=text]{
+  display: inline-block;
+  width: 220px;
+  color:  rgba(150, 40, 27, 1.0);
+  line-height: 24px;
+  border: 0px;
+  border-radius: 0px;
+  background: rgba(255,255,255,0);
+  border-bottom:  rgba(150, 40, 27, .3) 2px solid;
+  transition: all .04s;
+  font-size: 18px;
+  padding: 3px 10px;
+  text-align: center;
+}
+
+nav input[type=text]:focus{
+  display: inline-block;
+  line-height: 24px;
+  border: 0px;
+  background: rgba(255,255,255,0);
+  border-bottom:  rgba(150, 40, 27, .3) 4px solid;
+}
+
+h2 {
+  background: rgba(150, 40, 27, 1.0);
+  color: #fff;
+  padding: 12px;
+  font-weight: 700;
+  font-family: 'Zapf Chancery', cursive;
+}
+
+.profile-card{
+  display: inline-block;
+  margin: 0 auto;
+  width: 100%;
+  border: 4px solid rgba(150, 40, 27, 1.0);
+  padding: 5% 10%;
+  position: relative;
+  margin-bottom: 20px;
+  font-size: 0;
+  border-radius:  40px 200px 40px 200px;
+  cursor: pointer;
+}
+
+
+.profile-card:hover{
+  background: rgba(255,192,203,.3);
+}
+
+.profile-card:nth-of-type(even){
+  border-radius: 200px 40px 200px 40px;
+
+}
+
+.profile-card > * {
+  display: inline-block;
+  font-size: medium;
+  vertical-align: middle;
+  width: 48%;
+  margin: 1%;
+}
+
+
+.profile-card img{
+  border-radius: 50%;
+  border: 4px solid pink;
+}
+.profile-card h5{
+  font-size: 21px;
+  line-height: 17px;
+  text-align: center;
+  border: 2px solid rgba(150, 40, 27, .5);
+  color: rgba(150, 40, 27, 1.0);
+  padding: 5px;
+}
+
+h5 small {
+  color: rgba(150, 40, 27, .5);
+  font-size: 12px;
+}
+
+.single-profile {
+  position: relative;
+  padding: 25px;
+  border: 10px solid rgba(150, 40, 27, 1.0);
+}
+
+a.left-arrow,
+a.right-arrow {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 45px;
+  height: 45px;
+  line-height: 40px;
+  font-size: 30px;
+  background: pink;
+  text-align: center;
+  cursor: pointer;
+  z-index: 5;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50%;
+}
+a.left-arrow:hover,
+a.right-arrow:hover{
+  background: #D64541;
+  opacity: .8;
+} 
+
+a.left-arrow{
+  left: 0px;
+}
+
+a.right-arrow{
+  right: 0px;
+}
+
+
+
+.single-profile .main img {
+  display: block;
+  width: 55%;
+  margin: 10px auto;
+}
+
+.single-profile .main h4 {
+  display: block;
+  margin: 0 auto;
+  color: rgba(215,152,193,1);
+  text-align: center;
+}
+
+.single-profile .main button {
+  display: block;
+  margin: 0 auto;
+  background: rgba(215,152,193,1);
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+
+}
+
+
+.single-profile .details  h3 {
+  text-align: center;
+  color: rgba(150, 40, 27, 1.0);
+  background: rgba(255,192,203,1);
+
+}
+
+.single-profile .details h6 {
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0;
+  color: rgba(150, 40, 27, 1.0);
+
+}
+.single-profile .details p {
+  padding-left: 10px;
+  color: rgba(215,152,193,1);
+  margin-bottom: 12px;
+}
+
+footer {
+  background: #D64541;
+}
+
+footer li {
+  display: inline-block;
+  padding: 15px;
+  color: #ddd;
+}
+
+#current-favs {
+  max-width: none;
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  right: 0px;
+  text-align: right;
+  background: rgba(215,152,193,.5);
+}
+#current-favs > *{
+  display: inline-block;
+  border: 2px rgba(150, 40, 27, 1.0) solid;
+  padding: 0 15px;
+  margin-left: 5px ;
+  background: #fff;
+
+}
+
+.fav img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 5px auto;
+}
+
+.fav h6{
+  text-align: center;
+  margin: 0 -15px;
+  background: rgba(150, 40, 27, 1.0);
+  color: #fff;
+  font-weight: 700;
+}
+
+a.home {
+  position: fixed; top: 5px; left: 5px; 
+  padding: 10px;      
+  background: #2574A9;
+  text-decoration: none;
+  color: #fff;
+  border: #2574A9 4px solid;
+
+}
+a.home:hover {
+  background: #fff;
+  color: #2574A9;
+}
+
+@media screen and (min-width: 700px){
+   .profile-card{
+     display: inline-block;
+     margin: 1.5%;
+     width: 47%;
+    }
+
+    .single-profile {
+      border-radius: 20px;
+      font-size: 0;
+    }
+
+    .single-profile > * {
+      display: inline-block;
+      width: 50%;
+      font-size: medium;
+      vertical-align: top;
+    }
+
+    .single-profile .main img {
+      display: block;
+      width: 95%;
+    }
+
+}
