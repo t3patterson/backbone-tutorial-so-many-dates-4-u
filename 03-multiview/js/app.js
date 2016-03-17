@@ -91,7 +91,7 @@ var MultiDaterView = Backbone.View.extend({
   //(2c)
   render: function(){
     //(3b)
-    this.el.innerHTML = "<h2>So So Many</h2>"
+    this.el.innerHTML = "<h2>So, so many...</h2>"
   
     //(5)
     // for (var i = 0; i < this.coll.models.length; i++){
@@ -112,25 +112,25 @@ var AppRouter = Backbone.Router.extend({
   },
 
   showMultiHome: function(){
-    var laCollecion = new DaterCollection()
+    var laColeccion = new DaterCollection()
 
     //(3a)                                      //4)
-    var multiViewInstance = new MultiDaterView(laCollecion)
+    var multiViewInstance = new MultiDaterView(laColeccion)
     //(3b)
     multiViewInstance.render()
 
-    laCollecion.fetch()
+    laColeccion.fetch()
 
   },
 
   showSingle: function(bioId){
-    container_el.innerHTML = "<h2> !Single profile: «" +  bioId + "» To Go Here</h2>"
-      var laCollecion = new DaterCollection()
+    container_el.innerHTML = "<h2> Single profile: «" +  bioId + "» To Go Here</h2>"
+      var laColeccion = new DaterCollection()
       
 
-      laCollecion.url('bioguide_id='+bioId)
+      laColeccion.url('bioguide_id='+bioId)
       
-      laCollecion.fetch().then(function(d){
+      laColeccion.fetch().then(function(d){
         console.log(d)
       })
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>so, so many</title>
+  <title>Backbone Walkthrough Tutorial</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
   <style>
     #container { max-width: 920px; margin: 0 auto;}
@@ -12,13 +12,32 @@
     hr{margin: 5px;}
     ul{padding-left: 40px; list-style: none; font-size: 18px;}
     ul > li {
-      padding: 5px;
+      padding: 10px;
       margin: 0;
       background: #89C4F4;
+      transition: all .2s;
+    }
+
+    ul >li:hover{
+      transform: scale(1.1);
     }
 
     ul > li:nth-of-type(even) {
       background: #ddd;
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: #2C3E50;
+      line-height: 40px;
+    }
+
+
+
+    a span {
+      font-size: 24px;
+      margin-right: 5px;
     }
 
   </style>
@@ -31,14 +50,15 @@
     <h4>So many dates 4 u!</h4> 
     
     <ul>
-      <li><a href="./01-router/index.html">01 - Router </a></li>
-      <li>02 - Router + Collection</li>
-      <li>03 - Router + Collection + MultiView</li>
-      <li>04 - Create Search Capability on MultiView</li>
-      <li>05 - Intro to View-Templating: Create SingleView </li>
-      <li>06 - Backbone.Events: Views Informing Other Views </li>
-      <li>07 - Assessing & Managing Application State Through the Router </li>
-      <li>08 - Full Application</li>
+      <li><a href="./01-router/index.html"><span>01</span> Router </a></li>
+      <li><a href="./02-collection/index.html"><span>02</span> Router + Collection</a></li>
+      <li><a href="./03-multiview/index.html"><span>03</span> Router + Collection + MultiView</a></li>
+      <li><a href="./04-singleview/index.html"><span>04</span> Router + Collection + SingleView</a></li>
+      <li><a href="./05-view-events-and-state/index.html"><span>05</span> Managing Application View `events`: MultiView  --> SingleView </a></li>
+      <li><a href="./06-app-state-and-view-state/index.html"><span>06</span> Advanced Router: application state --> SingleView state </a></li>
+      <hr>
+      <strong>Bonus Material:</strong>
+      <li><a href="./07-backbone-events-and-view-state/index.html"><span>07</span> Backbone.Events: SingleView state --> Router --> FavoritesView state </a></li>
     </ul>
   </div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

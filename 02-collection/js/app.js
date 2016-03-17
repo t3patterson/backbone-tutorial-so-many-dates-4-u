@@ -24,7 +24,7 @@
 // (5) return the relevant portion of the data in the Collection's .parse methods  
 //     (i.e.  rawData.results)
 
-// (6) Log the `laCollecion` instance inside the .then callback to make sure that the .parse
+// (6) Log the `laColeccion` instance inside the .then callback to make sure that the .parse
 //     is working properly --- you should see `models: Array[20]` as a property indicating that
 //     the data has been parsed into backbone-models
 
@@ -69,25 +69,25 @@ var AppRouter = Backbone.Router.extend({
   },
 
   showMultiHome: function(){
-    container_el.innerHTML = "<h2>Multi Profile View To Go Here</h2>"
-    var laCollecion = new DaterCollection()
+    container_el.innerHTML = "<h2>So, so many...</h2>"
+    var laColeccion = new DaterCollection()
 
     //(4a)
-    laCollecion.fetch().then(function(d){
+    laColeccion.fetch().then(function(d){
       // (6)
-      console.log(laCollecion)
+      console.log(laColeccion)
     })
   },
 
   showSingle: function(bioId){
     container_el.innerHTML = "<h2>Single profile: «" +  bioId + "» To Go Here</h2>"
-      var laCollecion = new DaterCollection()
+      var laColeccion = new DaterCollection()
       
       //(4b)
 
-      laCollecion.url('bioguide_id='+bioId)
+      laColeccion.url('bioguide_id='+bioId)
       
-      laCollecion.fetch().then(function(d){
+      laColeccion.fetch().then(function(d){
         console.log(d)
       })
 

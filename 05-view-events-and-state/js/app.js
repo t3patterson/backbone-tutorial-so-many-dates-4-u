@@ -1,27 +1,23 @@
-// 04 - Configure The SingleView
+// 05 - SingleView State
 //---------------------------------
 
-// (0) Before we build our view, let's revisit first how we are able to use our collection to
-//     fetch a single record.
-//        a) we need to build the url properly
-//        b) we will examine to see how the collection is getting parse
+// (1) Connect the multiview to the single view
+//      a) build events object : '«evt» «domEl»': «_callback»
+//      b) create `_navToSingle` callback 
+//      c) make sure that we can access the bioguide_id on each div.profile-card
+//      d) access the bioguide_id from the event-object in the callback's parameter
+//         with Backbone's evt.currentTarget 
 
+// (2) Use the router to manage the view state of the '.container' element 
+//     a) Create `containerView` as a property on the Router and set the `this.containerView`
+//        as the view instances created by MultiDaterView and SingleDaterView
 
-// (1) Extend Backbone.View to `SingleDaterView`
+//     b)  On the `showSingle` route, test to see if there is already a containerView, and if there is,
+//         we will clear the container
+//
+//     c)  Create a `_clearView` method that will test for a view and clear its innerHTML
 
-// (2) Create the major and minor properties/methods:
-//     a) el             -- selects DOM element on page
-//     b) render         -- selects element and executes the render method
-//     c) _buildTemplate -- will generate the html-string for our view
-//     d) initialize     -- connects the collection to the view and instructs the view to execute
-//                            its render method on data-sync 
-
-// (3) Create instance of the view and pass it the collection instance as an argument 
-//     a) Create SingleDaterView instance on the router
-
-// (4) Ensure that we can render a simple view ('#profile/S001198')
-
-// (5) Ensure that we can render the complex view
+//     d)  Clear errthing : innerHTML, view-events, backbone-events
 
 
 
@@ -50,14 +46,29 @@ var DaterCollection = Backbone.Collection.extend({
 })
 
 var MultiDaterView = Backbone.View.extend({
-  //(2a)
+  
   el: "#container",
 
-  //(6)
+  //1a)
+  events: {
+    "click .profile-card": "_navToSingle"
+  },
+
+  //1b)
+  _navToSingle: function(evt){
+    // (1c)
+    // console.log(e.currentTarget)
+    
+    //(1d)
+    window.location.hash = "profile/" + evt.currentTarget.id
+  },
+
+
   _buildTemplate: function(theCollection){
     var htmlStr = ''
     for (i = 0; i < theCollection.models.length; i++){
       var m = theCollection.models[i]
+                                              //(1c)
       htmlStr += '<div class="profile-card" id='+m.get('bioguide_id')+'>' 
       htmlStr +=   '<img src="http://flathash.com/'+ m.get('bioguide_id') +'">'
       htmlStr +=   "<h5>"+ m.get('first_name') + '</br>'
@@ -69,47 +80,33 @@ var MultiDaterView = Backbone.View.extend({
     return htmlStr
   },
 
-  //(2b)
-  initialize: function(c){
-    // (4a)
-    this.coll = c
 
-    // (4b)
+  initialize: function(c){
+    this.coll = c
     this.coll.on('sync', this.render.bind(this) )
   },
 
-  //(2c)
-  render: function(){
-    //(3b)
-    this.el.innerHTML = "<h2>So, so many...</h2>"
-  
-    //(5)
-    // for (var i = 0; i < this.coll.models.length; i++){
-    //   this.el.innerHTML += "<p>-" + this.coll.models[i].get('first_name') + "</p>" 
-    // }
 
-    //(6)
+  render: function(){
+  
+    this.el.innerHTML = "<h2>So, so many...</h2>"
     this.el.innerHTML += this._buildTemplate(this.coll)
 
   }
 })
 
 var SingleDaterView = Backbone.View.extend({
-// (2a)  
   el: "#container",
 
-// (2c)  
   _buildTemplate: function(theCollection){
     var dtrModels = theCollection.models,
         currentI  = 0
+    
+    console.log(this.dtrModels)
 
-    //(4)
-    // var htmlStr = '<h4>' + dtrModels[currentI].get('last_name') + '</h4>'
-
-    //(5)
     var htmlStr = '<div class="single-profile">'
         htmlStr+=  '<div class="main">'
-        htmlStr+=    '<img src="http://flathash.com/ '+ dtrModels[currentI].get('bioguide_id')+'" />'
+        htmlStr+=    '<img src="http://flathash.com/'+ dtrModels[currentI].get('bioguide_id')+'" />'
         htmlStr+=    '<h4> &hearts; ' + dtrModels[currentI].get('district') +   '</h4>'
         htmlStr+=    '<button class="add-to-favs" data-bio="'+ dtrModels[currentI].get('bioguide_id') +'">+</button>'
         htmlStr+=  '</div>'
@@ -133,13 +130,11 @@ var SingleDaterView = Backbone.View.extend({
     return htmlStr
   },
 
-// (2d)  
   initialize: function(c){
     this.coll = c
     this.coll.on('sync', this.render.bind(this) )
   },
 
-// (2b)
   render: function(){
     this.el.innerHTML += this._buildTemplate(this.coll)
   }
@@ -152,22 +147,36 @@ var AppRouter = Backbone.Router.extend({
     "*default" : "showMultiHome"  
   },
 
+
   showMultiHome: function(){
+    //(2d)
+    this._clearView(this.containerView)
     var laColeccion = new DaterCollection()
-    var multiViewInstance = new MultiDaterView(laColeccion)
+    this.containerView  = new MultiDaterView(laColeccion)
     laColeccion.fetch()
   },
 
   showSingle: function(bioId){
+      //(2b) if (this.containerView){ this.containerView.el.innerHTML = '' }
+      //(2d)
+      this._clearView(this.containerView)
+      
       var collectionOfOne = new DaterCollection()
-      var singleView = new SingleDaterView(collectionOfOne)
 
-      // (0a)
+      //(2a)
+      this.containerView = new SingleDaterView(collectionOfOne)
       collectionOfOne.url('bioguide_id='+bioId)
 
-      //(0b) 
-      collectionOfOne.fetch()//.then(function(){ console.log(collectionOfOne)} )
+      collectionOfOne.fetch()
+  },
 
+  //(2c)
+  _clearView: function(v){
+    if (v){ 
+      v.el.innerHTML = ''   //(2d)
+      v.undelegateEvents(); //(2d)
+      v.off()               //(2d)
+    }
   },
 
 
@@ -176,6 +185,5 @@ var AppRouter = Backbone.Router.extend({
   }
 })
 
-// (2)
 var myApp = new AppRouter()
 

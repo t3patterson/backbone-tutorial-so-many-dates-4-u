@@ -63,6 +63,14 @@ nav input[type=text]:focus{
   border-bottom:  rgba(150, 40, 27, .3) 4px solid;
 }
 
+h2 {
+  background: rgba(150, 40, 27, 1.0);
+  color: #fff;
+  padding: 12px;
+  font-weight: 700;
+  font-family: 'Zapf Chancery', cursive;
+}
+
 .profile-card{
   display: inline-block;
   margin: 0 auto;
@@ -197,7 +205,7 @@ a.right-arrow{
 }
 
 footer {
-  background: rgba(150, 40, 27, 1.0);;
+  background: #D64541;
 }
 
 footer li {
@@ -214,7 +222,6 @@ footer li {
   right: 0px;
   text-align: right;
   background: rgba(215,152,193,.5);
-  padding: 5px;
 }
 #current-favs > *{
   display: inline-block;
@@ -238,6 +245,20 @@ footer li {
   background: rgba(150, 40, 27, 1.0);
   color: #fff;
   font-weight: 700;
+}
+
+a.home {
+  position: fixed; top: 5px; left: 5px; 
+  padding: 10px;      
+  background: #2574A9;
+  text-decoration: none;
+  color: #fff;
+  border: #2574A9 4px solid;
+
+}
+a.home:hover {
+  background: #fff;
+  color: #2574A9;
 }
 
 @media screen and (min-width: 700px){

@@ -96,6 +96,7 @@ var ProfileMultiView = Backbone.View.extend({
 
   render: function(){
     console.log('rendering:multi')
+    this.el.innerHTML = "<h2>So, so many...</h2>"
     this.el.innerHTML = this._buildTemplate(this.coll)
     return this
   }
