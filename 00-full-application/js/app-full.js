@@ -28,10 +28,10 @@ var ProfileSingleView = Backbone.View.extend({
 
 
   events: {
-    "click button" : "_addMe",
+    "click button" : "_addMeToFavs",
   },
 
-  _addMe: function(e){
+  _addMeToFavs: function(e){
     console.log('event sent')
     console.log(e.target.dataset['bio'])
     var payload = this.coll.where({ bioguide_id: e.target.dataset['bio'] })
@@ -97,7 +97,7 @@ var ProfileMultiView = Backbone.View.extend({
   render: function(){
     console.log('rendering:multi')
     this.el.innerHTML = "<h2>So, so many...</h2>"
-    this.el.innerHTML = this._buildTemplate(this.coll)
+    this.el.innerHTML += this._buildTemplate(this.coll)
     return this
   }
 })
@@ -131,7 +131,7 @@ var NavView = Backbone.View.extend({
   },
 
   render: function(){
-    this.el.innerHTML = this._buildTemplate()
+    this.el.innerHTML += this._buildTemplate()
     return this
   }
 })

@@ -175,7 +175,7 @@ a.right-arrow{
 
 .single-profile .main button {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
   background: rgba(215,152,193,1);
   text-align: center;
   color: #fff;
