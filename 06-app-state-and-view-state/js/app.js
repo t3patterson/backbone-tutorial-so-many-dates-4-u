@@ -1,31 +1,44 @@
 // 06 - View-To-View State
 //---------------------------------
+//
+// (1) Our SingleDaterView instance needs to see if our app has already fetched a collection...
+//     ...so we will put dater collection on router in showMultiHome 
+//        with this.collection = new DaterCollection()
 
-// (1) put dater collection on router
+// (2) ...then we will create (if-else) logic to see whether that this.collection is undefined
+//       if(this.daterCollection === undefined)
+//           ---> same as always
 
-// (2) create logic if user refreshes the page (this.daterCollectoin === undefined) 
+// (3) ELSE (a) we will create a new instance of our view and pass this.collection at instantiation new
+//          (b) and force-rendeer
+//     
+// (4)  (a) filter for the current model on the collection based on the bioId from the window.location.hash
+//      (b) move it to a method and store index value in variable
 
-// (3) create logic if user comes from multiview page (i.e. our app knows about a previous collection)
 
-// (4) given our app knows about previous collection, filter for index of bioId from router
-
-// (5) create a method on router to filter for index ... makes code clean
-
-// (6) configure .render and ._buildTemplate to expect an index as a parameter
-
-// (7) Ah shit, but now when we refresh everything is breaking!
+// (5) Ah shit, but now when we refresh everything is breaking!
 //     Pass a 0 as the 2nd argument to the bound .render method in the initialize 
 //     that executes on-sync --- remember, on-sync will only return one item since 
-//     the collection.url is configured to fetch for a unique bio-id
+//     the collection.url is configured to fetch for a unique bio-id if this.collection === undefined
 
 //     the 0 will get passed as the `i` argument in the render method which then gets passed
-//     to the _buildTemplate...
+//     to the _buildTemplate!
 
 
-// (8) create the logic for the arrows
-//     a) left arrow logic
-//     b) right arrow logic
-//     c) append arrows to htmlStr
+// (7) a) create the logic for the left arrow and append 
+//         IF currentI === 0, THEN don't show left-arrow html 
+//            which has the bioguide-id of currentI - 1 in href 
+//         ELSE show left-arrow
+//     b) append to the HTMLstring
+///        
+
+// (8) a) create logic for the right arrow (IF currentI + 1 === this.coll.length, THEN don't show riht-arrow ELSE show left-arrow)
+//     IF currentI + 1 === this.coll.length, THEN don't show right-arrow html 
+//           which has the bioguide-id of currentI + 1 in href 
+//         ELSE show right-arrow
+
+//     b) append to the HTMLstring
+
 
 var container_el = document.querySelector('#container')
 
@@ -99,11 +112,11 @@ var SingleDaterView = Backbone.View.extend({
 
   _buildTemplate: function(theCollection, theIndex){
     var dtrModels = theCollection.models,
-       //(6b)
         currentI  = theIndex
 
     console.log(dtrModels)
 
+    //7a) Left Arrow logic
     if (currentI === undefined || currentI === 0){ 
       var leftArrowHTML = ''
     } else {
@@ -111,6 +124,7 @@ var SingleDaterView = Backbone.View.extend({
       var leftArrowHTML = '<a class="left-arrow" href="#profile/'+prevBioId+'">&lt;</a>'
     }
 
+    //8a) Right Arrow Logic
     if (currentI === undefined || currentI + 1 === dtrModels.length){ 
           var rightArrowHTML = ''
         } else {
@@ -146,6 +160,7 @@ var SingleDaterView = Backbone.View.extend({
 
   initialize: function(c){
     this.coll = c
+    //(6)
     this.coll.on('sync', this.render.bind(this, 0) )
   },
 
@@ -165,31 +180,31 @@ var AppRouter = Backbone.Router.extend({
 
   showMultiHome: function(){
     this._clearView(this.containerView)
-    //(1a)
+    //(2)
     this.daterCollection = new DaterCollection()
-                                              //(1b)
+                                              
     this.containerView  = new MultiDaterView(this.daterCollection)
 
-    //(1c)
     this.daterCollection.fetch()
   },
 
   showSingle: function(bioId){
       this._clearView(this.containerView)
     
-    //(2)
+    //(1)
     if (this.daterCollection === undefined){
         this.daterCollection = new DaterCollection()
         this.containerView = new SingleDaterView(this.daterCollection)
         this.daterCollection.url('bioguide_id='+bioId)
         this.daterCollection.fetch()
     } else { 
+
         //(3a)
         this.containerView = new SingleDaterView(this.daterCollection)
         //(3b)
         // this.containerView.render()  // BUT, IT GOES TO DARIN EVERYTME :(
 
-        //(4) Filter
+        //(4a) Filter
         // for (var i = 0 ; i <  this.daterCollection.models.length ; i++){
         //   var currentModl = this.daterCollection.models[i]
         //   if (currentModl.get('bioguide_id') === bioId ){
@@ -198,7 +213,7 @@ var AppRouter = Backbone.Router.extend({
         //   }
         // }
 
-        //(5b) execute
+        //(4b-2) execute
         console.log('current index of profile: ', this._getIndexOfProfile(bioId, this.daterCollection))
         var dtrIndex = this._getIndexOfProfile(bioId, this.daterCollection)
 
@@ -207,7 +222,7 @@ var AppRouter = Backbone.Router.extend({
     }
   },
 
-  // (5a) make funciton
+  // (4b-1) make funciton
   _getIndexOfProfile(idInRoute, daterColl){
     for (var i = 0 ; i <  daterColl.models.length ; i++){
       var modl = this.daterCollection.models[i]
